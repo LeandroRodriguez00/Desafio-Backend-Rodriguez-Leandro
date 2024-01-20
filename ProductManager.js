@@ -4,6 +4,7 @@ class ProductManager {
   constructor(filePath) {
     this.path = filePath;
     this.products = this.readProductsFromFile();
+    this.ensureProductsCount();
   }
 
   readProductsFromFile() {
@@ -17,6 +18,21 @@ class ProductManager {
 
   saveProductsToFile() {
     fs.writeFileSync(this.path, JSON.stringify(this.products, null, 2), 'utf8');
+  }
+
+  ensureProductsCount() {
+   
+    while (this.products.length < 10) {
+      const newProduct = {
+        title: `Producto de prueba ${this.products.length + 1}`,
+        description: `Descripción del producto de prueba ${this.products.length + 1}`,
+        price: Math.floor(Math.random() * 100) + 1,
+        thumbnail: `imagen${this.products.length + 1}.jpg`,
+        code: `CODE${this.products.length + 1}`,
+        stock: Math.floor(Math.random() * 50) + 1,
+      };
+      this.addProduct(newProduct);
+    }
   }
 
   addProduct(product) {
@@ -42,7 +58,7 @@ class ProductManager {
       this.saveProductsToFile();
       return this.products[index];
     }
-    return null; 
+    return null;
   }
 
   deleteProduct(productId) {
@@ -52,41 +68,8 @@ class ProductManager {
       this.saveProductsToFile();
       return deletedProduct;
     }
-    return null; 
+    return null;
   }
 }
 
-const productManager = new ProductManager('productos.json');
-
-productManager.addProduct({
-  title: 'producto prueba',
-  description: 'Este es un producto prueba',
-  price: 200,
-  thumbnail: 'Sin imagen',
-  code: 'ABC123',
-  stock: 25,
-});
-
-productManager.addProduct({
-  title: 'producto prueba2',
-  description: 'Este es un producto prueba2',
-  price: 200,
-  thumbnail: 'Sin imagen',
-  code: 'XYZ456',
-  stock: 25,
-});
-
-console.log('Productos:', productManager.getProducts());
-
-const productIdToUpdate = 1;
-const updatedProduct = productManager.updateProduct(productIdToUpdate, {
-  description: 'Nueva descripción del producto 1',
-  price: 200,
-});
-
-console.log('Producto actualizado:', updatedProduct);
-
-const productIdToDelete = 2;
-const deletedProduct = productManager.deleteProduct(productIdToDelete);
-
-console.log('Producto eliminado:', deletedProduct);
+module.exports = ProductManager;
