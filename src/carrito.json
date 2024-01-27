@@ -33,7 +33,15 @@
       {
         "product": "1",
         "quantity": 3
+      },
+      {
+        "product": "2",
+        "quantity": 1
       }
     ]
+  },
+  {
+    "id": "1706380802738",
+    "products": []
   }
 ]
