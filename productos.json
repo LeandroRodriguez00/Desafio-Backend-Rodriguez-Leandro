@@ -1,12 +1,12 @@
 [
   {
-    "id": 1,
-    "title": "producto prueba",
+    "id": "1",
+    "title": "producto prueba actualizado",
     "description": "Nueva descripción del producto 1",
-    "price": 200,
+    "price": 5000,
     "thumbnail": "Sin imagen",
     "code": "ABC123",
-    "stock": 25
+    "stock": 14
   },
   {
     "id": 3,
@@ -88,5 +88,14 @@
     "thumbnail": "imagen10.jpg",
     "code": "CODE10",
     "stock": 7
+  },
+  {
+    "id": 2,
+    "title": "producto prueba15",
+    "description": "Este es un producto prueba15",
+    "price": 200,
+    "thumbnail": "Sin imagen",
+    "code": "XYZ4565",
+    "stock": 25
   }
 ]
