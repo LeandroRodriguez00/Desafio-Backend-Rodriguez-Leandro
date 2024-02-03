@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Productos en Tiempo Real</title>
+</head>
+<body>
+    <h1>Lista de Productos en Tiempo Real</h1>
+    
+    <ul id="product-list">
+        {{#each productos}}
+            <li>{{this.title}} - {{this.price}}</li>
+        {{/each}}
+    </ul>
+
+    <form id="addProductForm">
+        <label for="title">Nombre:</label>
+        <input type="text" id="title" name="title" required>
+        
+        <label for="price">Precio:</label>
+        <input type="text" id="price" name="price" required>
+        
+        <button type="submit">Agregar Producto</button>
+    </form>
+
+    <script src="/socket.io/socket.io.js"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const socket = io();
+
+            document.getElementById('addProductForm').addEventListener('submit', (event) => {
+                event.preventDefault();
+                const titleInput = document.getElementById('title');
+                const priceInput = document.getElementById('price');
+
+                const title = titleInput.value;
+                const price = priceInput.value;
+
+                socket.emit('addProduct', { title, price });
+
+                titleInput.value = '';
+                priceInput.value = '';
+            });
+
+            socket.on('updateProducts', (productos) => {
+                const productList = document.getElementById('product-list');
+                productList.innerHTML = '';
+
+                productos.forEach(producto => {
+                    const listItem = document.createElement('li');
+                    listItem.textContent = `${producto.title} - ${producto.price}`;
+                    productList.appendChild(listItem);
+                });
+            });
+
+            socket.on('connect', () => {
+                console.log('Conectado al servidor de Socket.IO');
+            });
+
+            socket.on('disconnect', () => {
+                console.log('Desconectado del servidor de Socket.IO');
+            });
+        });
+    </script>
+</body>
+</html>

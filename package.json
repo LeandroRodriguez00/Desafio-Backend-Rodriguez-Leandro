@@ -1,6 +1,11 @@
 {
   "dependencies": {
-    "express": "^4.18.2"
+    "express": "^4.18.2",
+    "express-handlebars": "^7.1.2",
+    "fs.promises": "^0.1.2",
+    "http": "^0.0.1-security",
+    "path": "^0.12.7",
+    "socket.io": "^4.7.4"
   },
   "name": "backend-desafios--rodriguez-leandro",
   "version": "1.0.0",
