@@ -63,7 +63,7 @@ productosRouter.get('/:pid', async (req, res) => {
 productosRouter.post('/', async (req, res) => {
     const productos = await readDataFile('productos');
     const nuevoProducto = {
-        id: Date.now().toString(),
+        id: productos.length > 0 ? Math.max(...productos.map(p => Number(p.id))) + 1 : 1,
         ...req.body,
     };
     productos.push(nuevoProducto);
@@ -72,6 +72,7 @@ productosRouter.post('/', async (req, res) => {
     io.emit('updateProducts', productos);
 
     res.json(nuevoProducto);
+    
 });
 
 productosRouter.put('/:pid', async (req, res) => {
@@ -91,7 +92,7 @@ productosRouter.put('/:pid', async (req, res) => {
 
 productosRouter.delete('/:pid', async (req, res) => {
     const productos = await readDataFile('productos');
-    const index = productos.findIndex((p) => p.id === req.params.pid);
+    const index = productos.findIndex((p) => p.id === parseInt(req.params.pid, 10));
     if (index !== -1) {
         const deletedProduct = productos.splice(index, 1)[0];
         await writeDataFile('productos', productos);

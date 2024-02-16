@@ -2,19 +2,16 @@
   "dependencies": {
     "express": "^4.18.2",
     "express-handlebars": "^7.1.2",
-    "fs.promises": "^0.1.2",
-    "http": "^0.0.1-security",
-    "path": "^0.12.7",
     "socket.io": "^4.7.4"
   },
   "name": "backend-desafios--rodriguez-leandro",
   "version": "1.0.0",
-  "main": "nodemon app.js",
+  "main": "nodemon index.js",
   "devDependencies": {
     "nodemon": "^3.0.3"
   },
   "scripts": {
-    "start": "node src/index.js",
+    "start": "nodemon src/index.js",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "keywords": [],
